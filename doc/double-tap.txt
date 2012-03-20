@@ -1,0 +1,91 @@
+*doubletap.txt*          For Vim version 7.3          Last change: 2012 Mar 20
+
+   888                                   888                                888
+   888                                   888                                888
+  888                                   888                                888
+  88888b.   8888b.  88888b.   .d88b.   88888b.   8888b.  88888b.   .d88b.  888
+ 888 "88b     "88b 888 "88b d88P"88b  888 "88b     "88b 888 "88b d88P"88b 888
+ 888  888 .d888888 888  888 888  888  888  888 .d888888 888  888 888  888 Y8P
+888 d88P 888  888 888  888 Y88b 888  888 d88P 888  888 888  888 Y88b 888  "
+88888P"  "Y888888 888  888  "Y88888  88888P"  "Y888888 888  888  "Y88888 888
+                                 888                                 888
+                            Y8b d88P                            Y8b d88P
+    Double-tap!              "Y88P"                              "Y88P"
+
+                                                                *doubletap-toc*
+
+1 Introduction                                              |doubletap-intro|
+2 Requirements                                              |doubletap-reqs|
+3 Trivia                                                    |doubletap-trivia|
+4 Contributing                                              |doubletap-contrib|
+
+The functionality mentioned here is a plugin, see |add-plugin|. You can
+avoid loading this plugin by setting the "loaded_doubletap" global
+variable in your |vimrc| file:
+>
+    :let g:loaded_doubletap = 1
+<
+Since you are most likely using some plugin to manage your plugins there is
+probably an even easier way.
+
+===============================================================================
+1 Introduction                                                *doubletap-intro*
+
+From time to time people ask on #vim on FreeNode how they can disable automatic
+insertion of comments when they open a new line. For example, in the following
+situation, where | marks the cursor:
+>
+    # This is a dummy comment for the
+    # sake of giving an example.|
+<
+pressing |<Enter>| will insert comments like this:
+>
+    # This is a dummy comment for the
+    # sake of giving an example.
+    # |
+<
+This can be very handy, but the times it isn't it is extremely annoying.
+Double-Tap fixes this once and for all. Continuing the example above, pressing
+|Enter| one more time will yield the following:
+>
+    # This is a dummy comment for the
+    # sake of giving an example.
+    |
+<
+So if you want to open a new line but don't what a new comment line,
+double-tapping the |Enter| key will fix it for you! Pressing |Enter| after
+opening a new line with |o| or |O| from normal mode has the same effect.
+
+===============================================================================
+2 Requirements                                                 *doubletap-reqs*
+
+Double-tap requires |+comments|.
+
+To find out whether it should clear the line or simply deliver the |Enter|
+keystroke as usual, Double-tap checks the 'comments' setting. Specifically it
+finds the item in the 'comments' setting where the {flags} portion is empty. If
+it cannot find it, a regular |Enter| is delivered every time.
+
+If it is found, Double-tap has no way of knowing if it's actually correct. Thus
+you are encouraged to either set the 'comments' setting appropriately for the
+filetype of your choice if Double-tap behaves badly, or not use this plugin
+(see |doubletap-trivia|).
+
+===============================================================================
+3 Trivia                                                     *doubletap-trivia*
+
+Did you know that pressing |i_CTRL-U| after pressing |Enter|, |o| or |O| in the
+situation above would have literally the exact same effect? (If you don't
+believe me, check the source!) Still, double-tapping is easier than some
+weird Ctrl-combo.
+
+===============================================================================
+4 Contributing                                              *doubletap-contrib*
+
+To be honest, I don't envision anything more for this plugin than what it
+already does. Ideas that would be fitting are most welcome since I cannot
+think of anything myself.
+
+Bugs can be reported on the Github page: http://github.com/osse/double-tap
+
+ vim:tw=78:ts=8:ft=help:norl:
