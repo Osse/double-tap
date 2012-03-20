@@ -43,7 +43,7 @@ let s:commStart = {} " dict to hold the comment starters using
 
 " This function returns a regular <CR> if the current line
 " is not simply an empty comment. Otherwise it clears the line
-function! Doubletap_detect_empty_comment()
+function! s:Detect_empty_comment()
   " Do nothing in particular if no filetype is set
   if empty(&ft)
     return "\<CR>"
@@ -60,7 +60,11 @@ function! Doubletap_detect_empty_comment()
   endif
 endfunction
 
-inoremap <expr> <CR> Doubletap_detect_empty_comment()
+if !hasmapto('<Plug>DoubletapDetect')
+  imap <expr> <unique> <CR> <Plug>DoubletapDetect
+endif
+
+inoremap <expr> <Plug>DoubletapDetect <SID>Detect_empty_comment()
 
 " Teardown:{{{1
 "reset &cpo back to users setting
