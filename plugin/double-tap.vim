@@ -1,3 +1,4 @@
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Double-Tap makes annoying comments go away
 " Maintainer:  Øystein Walle <oystwa@gmail.com>
@@ -25,7 +26,7 @@ set cpo&vim
 " We need version 7 for <expr> mappings
 " as well as the user wanting nocompatible
 if exists("g:loaded_doubletap")
-          \ !has("comments")
+          \ || !has("comments")
           \ || v:version < 700
           \ || &compatible
   let &cpo = s:save_cpo
@@ -43,6 +44,10 @@ let s:commStart = {} " dict to hold the comment starters using
 " This function returns a regular <CR> if the current line
 " is not simply an empty comment. Otherwise it clears the line
 function! Doubletap_detect_empty_comment()
+  " Do nothing in particular if no filetype is set
+  if empty(&ft)
+    return "\<CR>"
+  endif
   " Captures the comment starter if necessary; only once per filetype
   if !has_key(s:commStart, &ft)
     let s:commStart[&ft] = substitute(&comments, s:pattern, '\2', '')
