@@ -61,7 +61,7 @@ function! s:Detect_empty_comment()
 endfunction
 
 if !hasmapto('<Plug>DoubletapDetect')
-  imap <unique> <CR> <Plug>DoubletapDetect
+  silent! imap <unique> <CR> <Plug>DoubletapDetect
 endif
 
 inoremap <expr> <Plug>DoubletapDetect <SID>Detect_empty_comment()
