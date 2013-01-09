@@ -53,7 +53,7 @@ function! s:Detect_empty_comment()
     let s:commStart[&ft] = matchstr(&comments, s:pattern)
   endif
   let line = getline('.')
-  if s:commStart[&ft] && line =~ '^\s*'. s:commStart[&ft] . '\s*$'
+  if s:commStart[&ft] != '' && line =~ '^\s*'. s:commStart[&ft] . '\s*$'
     return "\<C-U>"
   else
     return "\<CR>"
