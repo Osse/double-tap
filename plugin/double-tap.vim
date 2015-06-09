@@ -35,9 +35,6 @@ endif
 let g:loaded_doubletap = 1
 " }}}
 
-let s:pattern = '\([b,]\|^\):\zs\([^,]\+\)' " This patterns finds the wanted
-                                         " item in 'comments'
-
 let s:commStart = {} " dict to hold the comment starters using
                      " the current filetype as key
 
@@ -50,10 +47,13 @@ function! s:Detect_empty_comment()
   endif
   " Captures the comment starter if necessary; only once per filetype
   if !has_key(s:commStart, &ft)
-    let s:commStart[&ft] = matchstr(&comments, s:pattern)
+    let s:commStart[&ft] = substitute(&commentstring, "%s.*$", "", "")
+    let s:commStart[&ft] = substitute(s:commStart[&ft], "\s*","","")
+    let s:commStart[&ft] = escape(s:commStart[&ft],'/\')
+    :echom s:commStart[&ft]
   endif
   let line = getline('.')
-  if s:commStart[&ft] != '' && line =~ '^\s*'. s:commStart[&ft] . '\s*$'
+  if s:commStart[&ft] != '' && line =~ '\V\^\s\*'. s:commStart[&ft] . '\s\*\$'
     return "\<C-U>"
   else
     return "\<CR>"
