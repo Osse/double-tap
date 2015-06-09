@@ -50,7 +50,6 @@ function! s:Detect_empty_comment()
     let s:commStart[&ft] = substitute(&commentstring, "%s.*$", "", "")
     let s:commStart[&ft] = substitute(s:commStart[&ft], "\s*","","")
     let s:commStart[&ft] = escape(s:commStart[&ft],'/\')
-    :echom s:commStart[&ft]
   endif
   let line = getline('.')
   if s:commStart[&ft] != '' && line =~ '\V\^\s\*'. s:commStart[&ft] . '\s\*\$'
