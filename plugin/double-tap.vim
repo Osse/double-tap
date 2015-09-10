@@ -35,8 +35,8 @@ endif
 let g:loaded_doubletap = 1
 " }}}
 
-let s:pattern = '\([b,]\|^\):\zs\([^,]\+\)' " This patterns finds the wanted
-                                         " item in 'comments'
+let s:pattern = '\v,:\zs([^,:]+)' " This patterns finds the wanted
+                                  " item in 'comments'
 
 let s:commStart = {} " dict to hold the comment starters using
                      " the current filetype as key
